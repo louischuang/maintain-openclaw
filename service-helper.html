@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenClaw Service Helper</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f4;
+      --ink: #1f2528;
+      --muted: #5d676d;
+      --line: #d8ddd6;
+      --panel: #ffffff;
+      --accent: #0f766e;
+      --accent-2: #9a3412;
+      --code: #172126;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 40px 24px 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 32px 0 12px;
+      font-size: 1.45rem;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e6f2ef;
+      color: var(--accent);
+      font-size: 0.86rem;
+      font-weight: 650;
+    }
+
+    .warning {
+      border-left: 4px solid var(--accent-2);
+      background: #fff7ed;
+    }
+
+    code {
+      color: var(--code);
+      background: #eef1ed;
+      border-radius: 5px;
+      padding: 0.12rem 0.28rem;
+      font-size: 0.95em;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 12px 0 0;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--code);
+      color: #f7fbf8;
+      line-height: 1.45;
+    }
+
+    pre code {
+      padding: 0;
+      color: inherit;
+      background: transparent;
+    }
+
+    ol, ul {
+      padding-left: 1.25rem;
+    }
+
+    li + li {
+      margin-top: 6px;
+    }
+
+    footer {
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <main>
+      <span class="badge">maintain-openclaw</span>
+      <h1>OpenClaw Service Helper</h1>
+      <p class="lead">這份教育文件說明如何使用本專案安裝、維護、檢查，以及安全移除 OpenClaw 相關服務。它不是自動化入口，而是操作前的閱讀與確認清單。</p>
+    </main>
+  </header>
+
+  <main>
+    <section>
+      <h2>專案用途</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>安裝</h3>
+          <p>把 OpenClaw 的安裝步驟整理成文件與腳本，讓新環境可重複建置。</p>
+        </div>
+        <div class="card">
+          <h3>狀態檢查</h3>
+          <p>檢查程序、服務、port、設定檔、版本與日誌，快速判斷是否健康。</p>
+        </div>
+        <div class="card">
+          <h3>維護</h3>
+          <p>記錄更新、備份、回滾、排查與日常操作，降低維運成本。</p>
+        </div>
+        <div class="card">
+          <h3>移除服務</h3>
+          <p>用 dry-run 先盤點 OpenClaw 相關資源，再經確認後停止、停用與刪除。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>測試環境</h2>
+      <p>目前可使用下列 VM 進行安裝、狀態檢查與移除服務流程測試：</p>
+      <pre><code>cp .env.example .env
+$EDITOR .env
+source .env
+ssh "$OPENCLAW_TEST_VM_SSH_TARGET"</code></pre>
+      <div class="card warning">
+        <h3>操作提醒</h3>
+        <p>登入後請先確認 `hostname`、`whoami`、`uname -a`。刪除服務前必須確認這台主機不是正式環境。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>建議閱讀順序</h2>
+      <ol>
+        <li><code>README.md</code>：了解專案入口、測試 VM 與主要文件。</li>
+        <li><code>AGENTS.md</code>：了解代理人或維護者應遵守的工作規範。</li>
+        <li><code>MVP.md</code>：了解第一版要交付的安裝、檢查與移除能力。</li>
+        <li><code>TODO.md</code>：挑選下一步可執行工作。</li>
+        <li><code>docs/remove-openclaw-services.md</code>：執行移除服務前必讀。</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>刪除服務的安全流程</h2>
+      <ol>
+        <li>先用 dry-run 盤點，不做任何刪除。</li>
+        <li>檢查輸出中是否有 OpenClaw 相關 systemd、launchd、Docker、cron、程序或 port。</li>
+        <li>備份服務定義、設定檔與必要日誌。</li>
+        <li>確認要刪除的項目與目標主機。</li>
+        <li>只有在明確確認後，才使用 destructive mode。</li>
+      </ol>
+      <pre><code>./scripts/remove-openclaw-services.sh --dry-run
+
+./scripts/remove-openclaw-services.sh \
+  --confirm \
+  --yes-i-understand-this-removes-openclaw-services</code></pre>
+    </section>
+
+    <section>
+      <h2>日常操作範例</h2>
+      <h3>檢查本機腳本語法</h3>
+      <pre><code>bash -n scripts/remove-openclaw-services.sh</code></pre>
+      <h3>在 VM 上測試 dry-run</h3>
+      <pre><code>source .env
+scp scripts/remove-openclaw-services.sh "$OPENCLAW_TEST_VM_SSH_TARGET":/tmp/remove-openclaw-services.sh
+ssh "$OPENCLAW_TEST_VM_SSH_TARGET" 'bash /tmp/remove-openclaw-services.sh --dry-run'</code></pre>
+      <h3>查看文件</h3>
+      <pre><code>open service-helper.html</code></pre>
+    </section>
+
+    <footer>
+      <p>這份 HTML 是教育文件。實際自動化邏輯以 <code>scripts/remove-openclaw-services.sh</code> 與 <code>docs/remove-openclaw-services.md</code> 為準。</p>
+    </footer>
+  </main>
+</body>
+</html>
