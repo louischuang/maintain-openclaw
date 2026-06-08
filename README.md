@@ -53,10 +53,46 @@ ssh "$OPENCLAW_TEST_VM_SSH_TARGET"
 
 1. 確認 OpenClaw 的安裝方式與官方來源。
 2. 建立本地 `.env`，並以 `.env.example` 作為範例。
-3. 建立 `scripts/install-openclaw.sh`。
+3. 使用 `scripts/install-openclaw.sh` 安裝並設定 OpenClaw。
 4. 建立 `scripts/check-openclaw.sh`。
 5. 使用 `scripts/remove-openclaw-services.sh --dry-run` 盤點 OpenClaw 服務。
 6. 將實際安裝、檢查與移除服務結果補到 `docs/`。
+
+## 安裝 OpenClaw
+
+先設定 `.env`：
+
+```sh
+cp .env.example .env
+$EDITOR .env
+```
+
+若 Ollama 跑在本機 Mac，而 OpenClaw 安裝在 VM，`OPENCLAW_OLLAMA_BASE_URL` 要填 VM 看得到的 host 位址，例如 Parallels host-visible URL，而不是 `127.0.0.1`。
+
+安裝：
+
+```sh
+source .env
+./scripts/install-openclaw.sh
+```
+
+目前 Ollama 模型預設為：
+
+```sh
+OPENCLAW_OLLAMA_MODEL=gemma4:26b
+```
+
+已在測試 VM 驗證：OpenClaw `2026.6.1` 可安裝，gateway 可在 loopback port 啟動，並可透過本機 Ollama 的 `gemma4:26b` 完成 one-shot 推理。
+
+## 操作介面建議
+
+建議優先順序：
+
+1. SSH + OpenClaw TUI：最適合 VM 維護與測試，不需要開放 gateway 到 LAN。
+2. Web dashboard + SSH tunnel：適合需要瀏覽器 UI 時使用，仍避免直接暴露 port。
+3. Messaging channels：例如 Telegram、Slack、LINE，適合之後做長期通知或遠端操作，但需要額外 token 與權限控管。
+
+不建議一開始就把 Gateway 直接綁到 LAN。若真的需要，請使用 token/password auth，並限制網路來源。
 
 ## 刪除 OpenClaw 服務
 
@@ -89,12 +125,15 @@ dry-run 只會盤點 OpenClaw 相關服務、程序、Docker 資源、cron、por
 - 設定檔是否存在且格式正確。
 - 最近日誌是否有錯誤。
 - 必要依賴是否可用。
+- Ollama API 是否可達。
+- 指定模型是否存在。
 
 ## 文件
 
 - [AGENTS.md](./AGENTS.md): 代理人工作規範。
 - [MVP.md](./MVP.md): 第一版可交付範圍。
 - [TODO.md](./TODO.md): 待辦清單。
+- [docs/installation.md](./docs/installation.md): OpenClaw 安裝與 Ollama 設定流程。
 - [service-helper.html](./service-helper.html): 專案使用與操作教育文件。
 - [docs/remove-openclaw-services.md](./docs/remove-openclaw-services.md): 刪除 OpenClaw 所有服務的安全流程。
 - [.env.example](./.env.example): 私密環境設定範例。

@@ -117,9 +117,9 @@
 
 - [ ] `README.md` 能說明專案用途與快速開始。
 - [ ] `AGENTS.md` 能指引代理人如何維護專案。
-- [ ] `docs/installation.md` 已完成。
+- [x] `docs/installation.md` 已完成。
 - [x] `.env.example` 已完成。
-- [ ] `scripts/install-openclaw.sh` 已完成且可執行。
+- [x] `scripts/install-openclaw.sh` 已完成且可執行。
 - [ ] `scripts/check-openclaw.sh` 已完成且可執行。
 - [x] `scripts/remove-openclaw-services.sh` 已完成且可執行。
 - [ ] `docs/operations.md` 已完成。
@@ -127,5 +127,5 @@
 - [x] `docs/remove-openclaw-services.md` 已完成。
 - [x] `service-helper.html` 已完成。
 - [ ] 已在一個目標環境完成安裝驗證。
-- [ ] 已記錄目前 OpenClaw 版本與健康狀態。
+- [x] 已記錄目前 OpenClaw 版本與健康狀態。
 - [x] 已在測試 VM 驗證 OpenClaw 服務刪除 dry-run 流程。

@@ -199,6 +199,25 @@ ssh "$OPENCLAW_TEST_VM_SSH_TARGET"</code></pre>
     </section>
 
     <section>
+      <h2>安裝 OpenClaw</h2>
+      <p>先把私密設定放進本地 <code>.env</code>，再執行安裝腳本。Ollama 跑在 Mac 時，VM 需要使用 host-visible URL。</p>
+      <pre><code>cp .env.example .env
+$EDITOR .env
+source .env
+./scripts/install-openclaw.sh</code></pre>
+      <p>預設模型使用 <code>gemma4:26b</code>。如果模型不在 Ollama 清單中，腳本會警告，但不會偷偷改掉設定。</p>
+    </section>
+
+    <section>
+      <h2>介面建議</h2>
+      <ol>
+        <li>SSH + <code>openclaw tui</code>：維護 VM 時最穩，gateway 不需要暴露到 LAN。</li>
+        <li>Dashboard + SSH tunnel：需要瀏覽器 UI 時使用，仍保留較小攻擊面。</li>
+        <li>Messaging channels：適合之後接 Telegram、Slack、LINE 做通知與遠端操作。</li>
+      </ol>
+    </section>
+
+    <section>
       <h2>刪除服務的安全流程</h2>
       <ol>
         <li>先用 dry-run 盤點，不做任何刪除。</li>

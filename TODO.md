@@ -4,14 +4,14 @@ OpenClaw 安裝與維護專案待辦。
 
 ## 立即待辦
 
-- [ ] 確認 OpenClaw 的官方來源、版本與安裝方式。
-- [ ] 確認目標環境：作業系統、CPU 架構、網路條件、權限限制。
-- [ ] 決定 OpenClaw 安裝目錄與設定檔目錄。
-- [ ] 建立 `docs/installation.md`。
+- [x] 確認 OpenClaw 的 npm 來源、版本與安裝方式。
+- [x] 確認目標環境：作業系統、CPU 架構、網路條件、權限限制。
+- [x] 決定 OpenClaw 安裝目錄與設定檔目錄。
+- [x] 建立 `docs/installation.md`。
 - [ ] 建立 `docs/operations.md`。
 - [ ] 建立 `docs/troubleshooting.md`。
 - [x] 建立 `.env.example`。
-- [ ] 建立 `scripts/install-openclaw.sh`。
+- [x] 建立 `scripts/install-openclaw.sh`。
 - [ ] 建立 `scripts/check-openclaw.sh`。
 - [x] 建立 `scripts/remove-openclaw-services.sh`。
 - [x] 建立 `service-helper.html` 教育文件。
@@ -21,11 +21,13 @@ OpenClaw 安裝與維護專案待辦。
 
 - [ ] 檢查必要指令是否存在。
 - [ ] 檢查作業系統與 CPU 架構。
-- [ ] 下載或安裝 OpenClaw。
-- [ ] 建立必要目錄。
+- [x] 下載或安裝 OpenClaw。
+- [x] 建立必要目錄。
 - [ ] 安裝或註冊服務。
-- [ ] 建立設定檔範例。
-- [ ] 安裝後執行健康檢查。
+- [x] 建立設定檔範例。
+- [x] 安裝後執行健康檢查。
+- [x] 設定 Ollama provider。
+- [x] 檢查 Ollama 模型是否存在。
 
 ## 狀態檢查待辦
 
